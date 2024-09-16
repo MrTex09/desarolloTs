@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginFormData {
   username: string;
@@ -15,6 +15,7 @@ const LoginForm: React.FC = () => {
 
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const navigate = useNavigate(); // Hook de navegación
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,16 +29,22 @@ const LoginForm: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/api/users', formData);
+      const response = await axios.post('http://localhost:3000/auth/login', formData);
+      // Guarda el token en localStorage o en estado global
+      localStorage.setItem('token', response.data.token);
       setSuccess('Login successful!');
       setError(null);
-      // Optionally, you could store the token and redirect the user
-      setFormData({
-        username: '',
-        password: '',
-      });
+      // Redirigir al home después del inicio de sesión exitoso
+      navigate('/'); // Ruta a la que redirigir
     } catch (error) {
-      setError('Error logging in.');
+      if (axios.isAxiosError(error) && error.response) {
+        // Handle specific error messages from the server
+        const errorMessage = error.response.data.message || 'Error logging in.';
+        setError(`Login failed: ${errorMessage}`);
+      } else {
+        // Handle unknown errors
+        setError('Error logging in. Please try again.');
+      }
       setSuccess(null);
     }
   };

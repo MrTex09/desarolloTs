@@ -28,3 +28,4 @@ router.patch('/users/:id/role', async (req, res) => {
 });
 
 export default router;
+// neceisto qeu me des un sidebar y cuando se logea el usario en el fron peuda  ver equimentlist    
