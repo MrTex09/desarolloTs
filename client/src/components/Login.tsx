@@ -1,52 +1,79 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
-import { login } from '../services/api';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const navigate = useNavigate(); 
+interface LoginFormData {
+  username: string;
+  password: string;
+}
 
-  const handleLogin = async (e: React.FormEvent) => {
+const LoginForm: React.FC = () => {
+  const [formData, setFormData] = useState<LoginFormData>({
+    username: '',
+    password: '',
+  });
+
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     try {
-      const response = await login(username, password);
-      localStorage.setItem('token', response.data.token);
-      navigate('/equipments');
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      setError('Credenciales inválidas');
+      const response = await axios.post('http://localhost:3000/api/users', formData);
+      setSuccess('Login successful!');
+      setError(null);
+      // Optionally, you could store the token and redirect the user
+      setFormData({
+        username: '',
+        password: '',
+      });
+    } catch (error) {
+      setError('Error logging in.');
+      setSuccess(null);
     }
   };
 
   return (
-    <div className="container">
-      <h2>Iniciar sesión</h2>
-      <form onSubmit={handleLogin}>
+    <div>
+      <h2>Login</h2>
+      {success && <p style={{ color: 'green' }}>{success}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <form onSubmit={handleSubmit}>
         <div>
-          <label>Usuario</label>
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label>Contraseña</label>
+          <label htmlFor="password">Password:</label>
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
             required
           />
         </div>
-        {error && <p>{error}</p>}
-        <button type="submit">Iniciar sesión</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default LoginForm;

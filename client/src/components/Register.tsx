@@ -1,43 +1,88 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Register: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
+interface RegisterFormData {
+  username: string;
+  gmail: string;
+  password: string;
+  role: 'user'; // Solo 'user' como rol
+}
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+const RegisterForm: React.FC = () => {
+  const [formData, setFormData] = useState<RegisterFormData>({
+    username: '',
+    gmail: '',
+    password: '',
+    role: 'user', // Valor por defecto
+  });
+
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const navigate = useNavigate(); // Hook de navegación
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/auth/register', {
-        username,
-        password,
-        role,
+      const response = await axios.post('http://localhost:3000/api/users', formData);
+      setSuccess('User registered successfully!');
+      setError(null);
+      // Redirigir al home después del registro exitoso
+      setFormData({
+        username: '',
+        gmail: '',
+        password: '',
+        role: 'user', // Valor por defecto
       });
-      console.log(response.data);
-      navigate('/login'); 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error: any) {
-      setError('Error registering user. Please try again.');
+      navigate('/'); // Ruta a la que redirigir
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        // Handle specific error messages from the server
+        const errorMessage = error.response.data.message || 'Error registering user.';
+        setError(`Registration failed: ${errorMessage}`);
+      } else {
+        // Handle unknown errors
+        setError('Error registering user. Please try again.');
+      }
+      setSuccess(null);
     }
   };
 
   return (
     <div>
-      <h1>Register</h1>
+      <h2>Register</h2>
+      {success && <p style={{ color: 'green' }}>{success}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username:</label>
           <input
             type="text"
             id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="gmail">Email:</label>
+          <input
+            type="email"
+            id="gmail"
+            name="gmail"
+            value={formData.gmail}
+            onChange={handleChange}
             required
           />
         </div>
@@ -46,26 +91,16 @@ const Register: React.FC = () => {
           <input
             type="password"
             id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
             required
           />
         </div>
-        <div>
-          <label htmlFor="role">Role:</label>
-          <input
-            type="text"
-            id="role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            required
-          />
-        </div>
-        {error && <p>{error}</p>}
         <button type="submit">Register</button>
       </form>
     </div>
   );
 };
 
-export default Register;
+export default RegisterForm;
