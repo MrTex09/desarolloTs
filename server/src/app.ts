@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import cors from 'cors';
-import { sequelize } from './db';
+import { sequelize } from '../src/config/db';
 import authRoutes from './routes/authRoutes';
 import equipmentRoutes from './routes/equipmentRoutes';
 
@@ -20,7 +20,7 @@ app.use('/auth', authRoutes); // Rutas de autenticación
 app.use('/equipments', equipmentRoutes); // Rutas de equipos
 
 // Puerto del servidor
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 
 // Conectar a la base de datos y levantar el servidor
 sequelize.authenticate()

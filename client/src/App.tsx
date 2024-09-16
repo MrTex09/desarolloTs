@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 import EquipmentList from './components/EquipmentList';
 import EquipmentForm from './components/EquipmentForm';
-import Home from './components/Home';
+import Home from './components/home';
 import NotFound from './components/notFound';
-import Register from './components/register'; 
+import Register from './components/Register'; 
 
 
 
