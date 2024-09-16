@@ -13,7 +13,7 @@ const router = Router();
 // Definición de rutas
 router.get('/users', getAllUsers);
 router.get('/users/:id', getUserById);
-router.post('/register', createUser); // Aquí se maneja la solicitud POST
+router.post('/userss', createUser); // Aquí se maneja la solicitud POST
 router.put('/users/:id', updateUser);
 router.delete('/users/:id', deleteUser);
 router.patch('/users/:id/role', async (req, res) => {
