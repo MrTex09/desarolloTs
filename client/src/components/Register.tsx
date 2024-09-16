@@ -34,7 +34,7 @@ const RegisterForm: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/api/users', formData);
+      const response = await axios.post('http://localhost:3000/api/register', formData);
       setSuccess('User registered successfully!');
       setError(null);
       // Redirigir al home después del registro exitoso

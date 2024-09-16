@@ -13,7 +13,7 @@ const router = Router();
 // Definición de rutas
 router.get('/users', getAllUsers);
 router.get('/users/:id', getUserById);
-router.post('/users', createUser); // Aquí se maneja la solicitud POST
+router.post('/register', createUser); // Aquí se maneja la solicitud POST
 router.put('/users/:id', updateUser);
 router.delete('/users/:id', deleteUser);
 router.patch('/users/:id/role', async (req, res) => {
@@ -28,4 +28,4 @@ router.patch('/users/:id/role', async (req, res) => {
 });
 
 export default router;
-// neceisto qeu me des un sidebar y cuando se logea el usario en el fron peuda  ver equimentlist    
+//neceisot que del lago del front y el back que solo un usuario logeado pueda aagregar y 
