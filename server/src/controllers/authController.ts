@@ -3,6 +3,7 @@ import { User } from '../models/user'; // Asegúrate de que la ruta sea correcta
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+// Registro de usuario
 export const register = async (req: Request, res: Response) => {
   const { username, password, role, gmail } = req.body;
 
@@ -21,7 +22,7 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 
-
+// Inicio de sesión
 export const login = async (req: Request, res: Response) => {
   const { username, password } = req.body;
 

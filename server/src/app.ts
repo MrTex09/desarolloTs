@@ -5,7 +5,7 @@ import cors from 'cors';
 import { sequelize } from '../src/config/db';
 import authRoutes from './routes/authRoutes';
 import equipmentRoutes from './routes/equipmentRoutes';
-
+import  userRouter from "../src/routes/userRoutes"
 dotenv.config();
 
 const app = express();
@@ -17,6 +17,7 @@ app.use(cors()); // Habilitar CORS para manejar peticiones cross-origin
 
 // Rutas
 app.use('/auth', authRoutes); // Rutas de autenticación
+app.use('/api', userRouter); // Rutas de user
 app.use('/equipments', equipmentRoutes); // Rutas de equipos
 
 // Puerto del servidor
