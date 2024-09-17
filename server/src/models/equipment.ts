@@ -1,28 +1,65 @@
-import { DataTypes } from 'sequelize';
-import { sequelize } from '../config/db';
-import { Brand } from './brandModel';
-import { Category } from './Category'; // Asegúrate de que la extensión del archivo sea correcta
+// models/Equipment.ts
+import { Model, DataTypes } from 'sequelize';
+import { sequelize } from '../config/db'; // Ajusta la ruta según tu configuración
+import { Brand } from './brandModel'; // Asegúrate de que la ruta sea correcta
+import { Category } from './Category'; // Asegúrate de que la ruta sea correcta
 
-export const Equipment = sequelize.define('Equipment', {
+class Equipment extends Model {
+  public id!: string;
+  public name!: string;
+  public status!: string;
+  public location!: string;
+  public purchaseDate!: Date;
+  public brandId!: string;
+  public categoryId!: string;
+}
+
+Equipment.init({
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true
+  },
   name: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: false
   },
   status: {
     type: DataTypes.STRING,
-    defaultValue: 'available',
+    allowNull: false
   },
   location: {
     type: DataTypes.STRING,
+    allowNull: false
   },
   purchaseDate: {
     type: DataTypes.DATE,
+    allowNull: false
   },
+  brandId: {
+    type: DataTypes.UUID,
+    references: {
+      model: Brand,
+      key: 'id'
+    }
+  },
+  categoryId: {
+    type: DataTypes.UUID,
+    references: {
+      model: Category,
+      key: 'id'
+    }
+  }
+}, {
+  sequelize,
+  tableName: 'equipments'
 });
 
-// Definir las asociaciones
+// Define las asociaciones
 Equipment.belongsTo(Brand, { foreignKey: 'brandId' });
 Equipment.belongsTo(Category, { foreignKey: 'categoryId' });
+Brand.hasMany(Equipment, { foreignKey: 'brandId' });
+Category.hasMany(Equipment, { foreignKey: 'categoryId' });
 
-// Si necesitas exportar el modelo para su uso en otros archivos, asegúrate de hacerlo aquí
-export default Equipment;
+export { Equipment };
+

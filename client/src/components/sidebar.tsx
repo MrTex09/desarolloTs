@@ -23,22 +23,26 @@ const Sidebar: React.FC = () => {
             </li>
             <li>
               <Link to="/admin/equipments/new">New Equipment</Link>
-            </li>           
-              <li>
-              <Link to="/admin/brands/new">NUEVA marcas</Link>
-            </li>      <li>
-              <Link to="/admin/brands">marcas</Link>
-            </li>       
-             <li>
-              <Link to="/admin/categories/new">nueva categorias</Link>
-              <Link to="/admin/categories">categorias</Link>
-            </li>  
+            </li>
+            <li>
+              <Link to="/admin/brands/new">Nueva Marcas</Link>
+            </li>
+            <li>
+              <Link to="/admin/brands">Marcas</Link>
+            </li>
+            <li>
+              <Link to="/admin/categories/new">Nueva Categoría</Link>
+            </li>
+            <li>
+              <Link to="/admin/categories">Categorías</Link>
+            </li>
           </>
         )}
       </ul>
-      <button onClick={logout}>Logout</button>
+      <button className="boton" onClick={logout}>Logout</button>
     </div>
   );
 };
 
 export default Sidebar;
+

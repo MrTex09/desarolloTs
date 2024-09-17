@@ -35,13 +35,13 @@ const EquipmentList = () => {
   };
 
   const handleEdit = (id: string) => {
-    navigate(`/equipments/edit/${id}`);
+    navigate(`/admin/equipments/edit/${id}`);
   };
 
   return (
     <div className="container">
       <h2>Lista de Equipos</h2>
-      <button onClick={() => navigate('/equipments/new')}>Agregar Equipo</button>
+      <button onClick={() => navigate('/admin/equipments/new')}>Agregar Equipo</button>
       <ul>
         {equipments.map((equipment) => (
           <li key={equipment.id}>

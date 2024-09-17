@@ -8,10 +8,10 @@ const Home: React.FC = () => {
       <p>This is the home page.</p>
       <div>
         <Link to="/register">
-          <button>Register</button>
+          <button  className="boton">Register</button>
         </Link>
         <Link to="/login">
-          <button>Login</button>
+          <button  className="boton">Login</button>
         </Link>
       </div>
     </div>

@@ -97,7 +97,7 @@ const RegisterForm: React.FC = () => {
             required
           />
         </div>
-        <button type="submit">Register</button>
+        <button  className="boton" type="submit">Register</button>
       </form>
     </div>
   );

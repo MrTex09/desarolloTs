@@ -21,3 +21,31 @@
     padding: 20px; /* Espaciado interior del contenido */
     flex-grow: 1; /* Permite que el contenido ocupe el espacio restante */
   }
+
+/* Botón */
+.boton {
+  background-color: #3498db; /* Color de fondo azul */
+  color: #fff; /* Color del texto blanco */
+  border: none; /* Sin borde */
+  padding: 10px 20px; /* Espaciado interior */
+  font-size: 16px; /* Tamaño de fuente */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor a pointer */
+  transition: background-color 0.3s ease; /* Transición para el hover */
+  margin: 20px ; /* Espaciado entre el botón y la lista de enlaces */
+   
+}
+
+.boton:hover {
+  background-color: #2980b9; /* Cambia el color de fondo al pasar el ratón */
+}
+
+.boton:active {
+  background-color: #1f6391; /* Color más oscuro cuando el botón está activo */
+  transform: scale(0.98); /* Efecto de clic */
+}
+
+.boton:disabled {
+  background-color: #bdc3c7; /* Color gris cuando está deshabilitado */
+  cursor: not-allowed; /* Cursor no permitido */
+}

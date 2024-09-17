@@ -1,3 +1,4 @@
+// models/Brand.ts
 import { Model, DataTypes } from 'sequelize';
 import { sequelize } from '../config/db'; // Ajusta la ruta según tu configuración
 

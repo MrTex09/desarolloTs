@@ -1,24 +1,44 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react';
-import { createBrand, deleteBrand } from '../services/api';
+import React, { useState, useEffect } from 'react';
+import { createBrand, deleteBrand, getBrands } from '../services/api';
+import BrandList from './brandList';
+
+// Define el tipo Brand aquí
+interface Brand {
+  id: string;
+  name: string;
+}
 
 const BrandForm = () => {
   const [brandName, setBrandName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [brands, setBrands] = useState<Brand[]>([]);
+
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const fetchedBrands = await getBrands();
+        setBrands(fetchedBrands);
+      } catch (error) {
+        console.error('Error fetching brands', error);
+      }
+    };
+
+    fetchBrands();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    
+
     try {
-      await createBrand({
-        name: brandName,
-        id: ''
-      }); // Ajustado según la API
+      await createBrand({ name: brandName, id: '' });
       setBrandName('');
-      // Aquí puedes agregar lógica para actualizar una lista de marcas si es necesario
+      // Fetch the updated list of brands
+      const updatedBrands = await getBrands();
+      setBrands(updatedBrands);
     } catch (error) {
       setError('Error creating brand');
     } finally {
@@ -32,7 +52,9 @@ const BrandForm = () => {
 
     try {
       await deleteBrand(id);
-      // Aquí puedes agregar lógica para actualizar una lista de marcas si es necesario
+      // Fetch the updated list of brands
+      const updatedBrands = await getBrands();
+      setBrands(updatedBrands);
     } catch (error) {
       setError('Error deleting brand');
     } finally {
@@ -54,6 +76,7 @@ const BrandForm = () => {
         </button>
       </form>
       {error && <p>{error}</p>}
+      <BrandList brands={brands} onDelete={handleDelete} />
     </div>
   );
 };
