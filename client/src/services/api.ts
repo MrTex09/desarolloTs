@@ -1,4 +1,3 @@
-// src/services/api.ts
 import axios from 'axios';
 
 const api = axios.create({
@@ -35,7 +34,6 @@ interface Category {
   name: string;
 }
 
-// Equipos
 interface Equipment {
   id: string;
   name: string;
@@ -66,7 +64,6 @@ export const deleteEquipment = (id: string) => {
   return api.delete(`/equipments/${id}`);
 };
 
-// Marcas
 export const createBrand = (data: Brand) => {
   return api.post('/api/brands', data);
 };
@@ -79,7 +76,6 @@ export const getBrands = () => {
   return api.get<Brand[]>('/api/brands').then((res) => res.data);
 };
 
-// Categorías
 export const createCategory = (data: Category) => {
   return api.post('/api/categories', data);
 };

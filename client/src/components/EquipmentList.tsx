@@ -15,15 +15,23 @@ const EquipmentList = () => {
 
   useEffect(() => {
     const loadEquipments = async () => {
-      const equipmentsData = await fetchEquipments();
-      setEquipments(equipmentsData); // No es necesario usar `response.data`
+      try {
+        const equipmentsData = await fetchEquipments();
+        setEquipments(equipmentsData);
+      } catch (error) {
+        console.error('Error fetching equipments:', error);
+      }
     };
     loadEquipments();
   }, []);
 
   const handleDelete = async (id: string) => {
-    await deleteEquipment(id);
-    setEquipments(equipments.filter((equipment) => equipment.id !== id)); 
+    try {
+      await deleteEquipment(id);
+      setEquipments(equipments.filter((equipment) => equipment.id !== id));
+    } catch (error) {
+      console.error('Error deleting equipment:', error);
+    }
   };
 
   const handleEdit = (id: string) => {

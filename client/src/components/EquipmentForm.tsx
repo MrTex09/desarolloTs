@@ -15,17 +15,17 @@ interface Category {
 }
 
 const EquipmentForm = () => {
-  const [name, setName] = useState('');
-  const [status, setStatus] = useState('available');
-  const [location, setLocation] = useState('');
-  const [purchaseDate, setPurchaseDate] = useState('');
+  const [name, setName] = useState<string>('');
+  const [status, setStatus] = useState<string>('available');
+  const [location, setLocation] = useState<string>('');
+  const [purchaseDate, setPurchaseDate] = useState<string>('');
   const [brands, setBrands] = useState<Brand[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [selectedBrand, setSelectedBrand] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [selectedBrand, setSelectedBrand] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id?: string }>();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const EquipmentForm = () => {
     fetchData();
   }, [id]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = { 
       name, 
