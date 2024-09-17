@@ -15,8 +15,7 @@ const LoginForm: React.FC = () => {
 
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const navigate = useNavigate(); // Hook de navegación
-
+  const navigate = useNavigate();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -30,19 +29,21 @@ const LoginForm: React.FC = () => {
 
     try {
       const response = await axios.post('http://localhost:3000/auth/login', formData);
-      // Guarda el token en localStorage o en estado global
-      localStorage.setItem('token', response.data.token);
+      const { token, role } = response.data;
+      localStorage.setItem('token', token);
+      if (role === 'admin') {
+        navigate('/equipments');
+      } else {
+        navigate('/equipUser');
+      }
+
       setSuccess('Login successful!');
       setError(null);
-      // Redirigir al home después del inicio de sesión exitoso
-      navigate('/'); // Ruta a la que redirigir
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        // Handle specific error messages from the server
         const errorMessage = error.response.data.message || 'Error logging in.';
         setError(`Login failed: ${errorMessage}`);
       } else {
-        // Handle unknown errors
         setError('Error logging in. Please try again.');
       }
       setSuccess(null);
@@ -77,7 +78,7 @@ const LoginForm: React.FC = () => {
             required
           />
         </div>
-        <button  className="boton" type="submit">Login</button>
+        <button className="boton" type="submit">Login</button>
       </form>
     </div>
   );

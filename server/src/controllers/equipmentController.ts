@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-import  {Equipment} from '../models/equipment';  // Asegúrate de que la ruta sea correcta
-
+import  {Equipment} from '../models/equipment';  
 export const createEquipment = async (req: Request, res: Response) => {
   const { name, brandId, categoryId, status, location, purchaseDate } = req.body;
   try {

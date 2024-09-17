@@ -1,9 +1,7 @@
-// src/components/EquipmentForm.tsx
 import React, { useState, useEffect } from 'react';
 import { createEquipment, updateEquipment, getBrands, getCategories, fetchEquipmentById } from '../services/api';
 import { useNavigate, useParams } from 'react-router-dom';
 
-// Interfaces para marcas y categorías
 interface Brand {
   id: string;
   name: string;

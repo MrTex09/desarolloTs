@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { AuthProvider } from './context/authContext'; // Asegúrate de que esta ruta sea correcta
+import { AuthProvider } from './context/authContext';
 
 ReactDOM.render(
   <React.StrictMode>

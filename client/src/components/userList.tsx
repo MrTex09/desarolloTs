@@ -6,12 +6,11 @@ const UserList: React.FC = () => {
   const [users, setUsers] = useState<any[]>([]);
 
   useEffect(() => {
-    // Fetch users from API
+
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/users'); // Cambia la URL si es necesario
+        const response = await axios.get('http://localhost:3000/api/users'); 
 
-        // Verificar si response.data es un array
         if (Array.isArray(response.data)) {
           setUsers(response.data);
         } else {
@@ -26,7 +25,7 @@ const UserList: React.FC = () => {
   }, []);
   const handleMakeAdmin = async (userId: string) => {
     try {
-      await axios.patch(`http://localhost:3000/api/users/${userId}/role`, { role: 'admin' }); // Cambia a PATCH y el endpoint correcto
+      await axios.patch(`http://localhost:3000/api/users/${userId}/role`, { role: 'admin' }); 
       setUsers(users.map(user =>
         user.id === userId ? { ...user, role: 'admin' } : user
       ));

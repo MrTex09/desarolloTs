@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// src/components/CategoryList.tsx
 import React, { useEffect, useState } from 'react';
 import { getCategories, deleteCategory } from '../services/api';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Asegúrate de tener instalado react-router-dom
+import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
   return (

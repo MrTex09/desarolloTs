@@ -1,7 +1,5 @@
-// models/Brand.ts
 import { Model, DataTypes } from 'sequelize';
-import { sequelize } from '../config/db'; // Ajusta la ruta según tu configuración
-
+import { sequelize } from '../config/db'; 
 class Brand extends Model {
   public id!: string;
   public name!: string;

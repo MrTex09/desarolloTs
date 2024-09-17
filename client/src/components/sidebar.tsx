@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
-import './Sidebar.css'; // Importa el archivo CSS
+import './Sidebar.css'; 
 
 const Sidebar: React.FC = () => {
   const { user, logout } = useAuth();
@@ -25,7 +25,7 @@ const Sidebar: React.FC = () => {
               <Link to="/admin/equipments/new">New Equipment</Link>
             </li>
             <li>
-              <Link to="/admin/brands/new">Nueva Marcas</Link>
+              <Link to="/admin/brands/new">Nueva Marca</Link>
             </li>
             <li>
               <Link to="/admin/brands">Marcas</Link>
@@ -45,4 +45,3 @@ const Sidebar: React.FC = () => {
 };
 
 export default Sidebar;
-

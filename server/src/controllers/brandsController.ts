@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-import { Brand } from '../models/brandModel'; // Asegúrate de que esta ruta sea correcta
-
+import { Brand } from '../models/brandModel'; 
 // Obtener todas las marcas
 export const getAllBrands = async (req: Request, res: Response) => {
   try {

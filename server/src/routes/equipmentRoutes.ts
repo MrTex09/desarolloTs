@@ -5,8 +5,8 @@ import { authenticateJWT } from '../middlewares/authMiddleware';
 const router = Router();
 
 router.post('/', authenticateJWT, createEquipment);
-router.get('/', authenticateJWT, getAllEquipments);
-router.get('/:id', authenticateJWT, getEquipmentById);
+router.get('/', getAllEquipments);
+router.get('/:id', getEquipmentById);
 router.put('/edit/:id', authenticateJWT, updateEquipment);
 router.delete('/:id', authenticateJWT, deleteEquipment);
 

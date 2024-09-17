@@ -3,19 +3,20 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 import EquipmentList from './components/EquipmentList';
 import EquipmentForm from './components/EquipmentForm';
-import Home from './components/Home'; // Cambiado a Home para coincidir con el nombre del archivo
-import NotFound from './components/notFound'; // Cambiado a NotFound para coincidir con el nombre del archivo
+import Home from './components/Home'; 
+import NotFound from './components/notFound'; 
 import Register from './components/Register';
-import Sidebar from './components/sidebar'; // Cambiado a Sidebar para coincidir con el nombre del archivo
-import UserList from './components/userList'; // Cambiado a UserList para coincidir con el nombre del archivo
-import { useAuth } from './context/authContext'; // Cambiado a AuthContext para coincidir con el nombre del archivo
-import './App.css'; // Importa el archivo CSS
-import BrandForm from './components/brandForm'; // Cambiado a BrandForm para coincidir con el nombre del archivo
-import CategoryForm from './components/categoryForm'; // Cambiado a CategoryForm para coincidir con el nombre del archivo
-import BrandList from './components/brandList'; // Cambiado a BrandList para coincidir con el nombre del archivo
+import Sidebar from './components/sidebar'; 
+import UserList from './components/userList'; 
+import { useAuth } from './context/authContext'; 
+import './App.css'; 
+import BrandForm from './components/brandForm'; 
+import CategoryForm from './components/categoryForm'; 
+import BrandList from './components/brandList'; 
 import CategoryList from './components/categoryList';
+import EquipUserList from './components/equipUserList'; 
 
-const App = () => {
+const App: React.FC = () => {
   const { user } = useAuth();
   const isAdmin = user?.role === 'admin';
 
@@ -29,7 +30,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/equipments" element={<EquipmentList />} />
-
+            <Route path="/equipUser" element={<EquipUserList />} />
             {isAdmin && (
               <>
                 <Route path="/admin/users" element={<UserList />} />
@@ -42,7 +43,6 @@ const App = () => {
                 <Route path="/admin/brands" element={<BrandList />} />
               </>
             )}
-
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

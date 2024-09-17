@@ -1,8 +1,8 @@
-// src/middlewares/authMiddleware.ts
+
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { CustomJwtPayload } from '../interfaces/jwtPayload';
-import { CustomRequest } from '../interfaces/customRequest'; // Asegúrate de que la ruta sea correcta
+import { CustomRequest } from '../interfaces/customRequest';
 
 export const authenticateJWT = (req: CustomRequest, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;

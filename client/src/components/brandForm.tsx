@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { createBrand, deleteBrand, getBrands } from '../services/api';
 import BrandList from './brandList';
 
-// Define el tipo Brand aquí
+
 interface Brand {
   id: string;
   name: string;
@@ -36,7 +36,6 @@ const BrandForm = () => {
     try {
       await createBrand({ name: brandName, id: '' });
       setBrandName('');
-      // Fetch the updated list of brands
       const updatedBrands = await getBrands();
       setBrands(updatedBrands);
     } catch (error) {
@@ -52,7 +51,6 @@ const BrandForm = () => {
 
     try {
       await deleteBrand(id);
-      // Fetch the updated list of brands
       const updatedBrands = await getBrands();
       setBrands(updatedBrands);
     } catch (error) {

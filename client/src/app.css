@@ -1,51 +1,51 @@
-/* Estilos para el contenedor principal que incluye el sidebar y el contenido */
+
 .app-container {
-    display: flex; /* Usa Flexbox para alinear el sidebar y el contenido */
+    display: flex; 
   }
   
   .sidebar {
-    width: 200px; /* Ancho del sidebar */
-    height: 100vh; /* Altura completa de la ventana del navegador */
-    background-color: #2c3e50; /* Color de fondo del sidebar */
-    color: #ecf0f1; /* Color del texto */
-    position: fixed; /* Fija el sidebar a la izquierda */
+    width: 200px;
+    height: 100vh; 
+    background-color: #2c3e50; 
+    color: #ecf0f1; 
+    position: fixed; 
     left: 0;
     top: 0;
-    padding: 20px; /* Espaciado interior */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    overflow-y: auto; /* Habilita el scroll vertical si es necesario */
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; 
   }
   
   .content {
-    margin-left: 250px; /* Ancho del sidebar para evitar el solapamiento */
-    padding: 20px; /* Espaciado interior del contenido */
-    flex-grow: 1; /* Permite que el contenido ocupe el espacio restante */
+    margin-left: 250px; 
+    padding: 20px; 
+    flex-grow: 1; 
   }
 
-/* Botón */
+
 .boton {
-  background-color: #3498db; /* Color de fondo azul */
-  color: #fff; /* Color del texto blanco */
-  border: none; /* Sin borde */
-  padding: 10px 20px; /* Espaciado interior */
-  font-size: 16px; /* Tamaño de fuente */
-  border-radius: 5px; /* Bordes redondeados */
-  cursor: pointer; /* Cambia el cursor a pointer */
-  transition: background-color 0.3s ease; /* Transición para el hover */
-  margin: 20px ; /* Espaciado entre el botón y la lista de enlaces */
+  background-color: #3498db; 
+  color: #fff;
+  border: none;
+  padding: 10px 20px; 
+  font-size: 16px;
+  border-radius: 5px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
+  margin: 20px ; 
    
 }
 
 .boton:hover {
-  background-color: #2980b9; /* Cambia el color de fondo al pasar el ratón */
+  background-color: #2980b9; 
 }
 
 .boton:active {
-  background-color: #1f6391; /* Color más oscuro cuando el botón está activo */
-  transform: scale(0.98); /* Efecto de clic */
+  background-color: #1f6391; 
+  transform: scale(0.98); 
 }
 
 .boton:disabled {
-  background-color: #bdc3c7; /* Color gris cuando está deshabilitado */
-  cursor: not-allowed; /* Cursor no permitido */
+  background-color: #bdc3c7;
+  cursor: not-allowed; 
 }

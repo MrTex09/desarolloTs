@@ -1,8 +1,7 @@
-// models/Equipment.ts
 import { Model, DataTypes } from 'sequelize';
-import { sequelize } from '../config/db'; // Ajusta la ruta según tu configuración
-import { Brand } from './brandModel'; // Asegúrate de que la ruta sea correcta
-import { Category } from './Category'; // Asegúrate de que la ruta sea correcta
+import { sequelize } from '../config/db';
+import { Brand } from './brandModel'; 
+import { Category } from './Category';
 
 class Equipment extends Model {
   public id!: string;
@@ -55,7 +54,6 @@ Equipment.init({
   tableName: 'equipments'
 });
 
-// Define las asociaciones
 Equipment.belongsTo(Brand, { foreignKey: 'brandId' });
 Equipment.belongsTo(Category, { foreignKey: 'categoryId' });
 Brand.hasMany(Equipment, { foreignKey: 'brandId' });

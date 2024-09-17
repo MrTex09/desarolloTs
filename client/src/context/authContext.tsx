@@ -5,7 +5,6 @@ interface User {
   id: string;
   username: string;
   role: string;
-  // Otros campos que necesites
 }
 
 interface AuthContextType {
@@ -21,10 +20,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     const fetchUser = async () => {
-      const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
+      const token = localStorage.getItem('token');
       if (token) {
-        // Aquí deberías verificar el token y obtener el usuario correspondiente
-        // Simulando la obtención del usuario para este ejemplo
         const userData = { id: '1', username: 'admin', role: 'admin' }; // Ejemplo de usuario
         setUser(userData);
       }
@@ -34,12 +31,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = (userData: User) => {
     setUser(userData);
-    localStorage.setItem('token', 'example-token'); // Guardar el token en el almacenamiento local
+    localStorage.setItem('token', 'example-token');
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('token'); // Eliminar el token del almacenamiento local
+    localStorage.removeItem('token');
   };
 
   return (
@@ -56,4 +53,3 @@ export const useAuth = () => {
   }
   return context;
 };
-

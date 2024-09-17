@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Category } from '../models/Category'; // Asegúrate de que esta ruta sea correcta
+import { Category } from '../models/Category'; 
 
 // Obtener todas las categorías
 export const getAllCategories = async (req: Request, res: Response) => {

@@ -10,10 +10,9 @@ import {
 
 const router = Router();
 
-// Definición de rutas
 router.get('/users', getAllUsers);
 router.get('/users/:id', getUserById);
-router.post('/users', createUser); // Corrección del endpoint de creación
+router.post('/users', createUser); 
 router.put('/users/:id', updateUser);
 router.delete('/users/:id', deleteUser);
 

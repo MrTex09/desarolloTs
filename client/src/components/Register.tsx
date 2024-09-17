@@ -7,7 +7,7 @@ interface RegisterFormData {
   username: string;
   gmail: string;
   password: string;
-  role: 'user'; // Solo 'user' como rol
+  role: 'user'; 
 }
 
 const RegisterForm: React.FC = () => {
@@ -15,12 +15,12 @@ const RegisterForm: React.FC = () => {
     username: '',
     gmail: '',
     password: '',
-    role: 'user', // Valor por defecto
+    role: 'user',
   });
 
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const navigate = useNavigate(); // Hook de navegación
+  const navigate = useNavigate(); 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -37,21 +37,18 @@ const RegisterForm: React.FC = () => {
       const response = await axios.post('http://localhost:3000/auth/register', formData);
       setSuccess('User registered successfully!');
       setError(null);
-      // Redirigir al home después del registro exitoso
       setFormData({
         username: '',
         gmail: '',
         password: '',
-        role: 'user', // Valor por defecto
+        role: 'user', 
       });
-      navigate('/equipments'); // Ruta a la que redirigir
+      navigate('/equipUser');
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        // Handle specific error messages from the server
         const errorMessage = error.response.data.message || 'Error registering user.';
         setError(`Registration failed: ${errorMessage}`);
       } else {
-        // Handle unknown errors
         setError('Error registering user. Please try again.');
       }
       setSuccess(null);

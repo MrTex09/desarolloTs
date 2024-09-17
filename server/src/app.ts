@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import cors from 'cors';
-import { sequelize } from './config/db'; // Asegúrate de que la ruta sea correcta
+import { sequelize } from './config/db'; 
 import authRoutes from './routes/authRoutes';
 import equipmentRoutes from './routes/equipmentRoutes';
 import userRouter from './routes/userRoutes';
@@ -13,14 +13,14 @@ dotenv.config();
 
 const app = express();
 
-// Middlewares
+
 app.use(express.json());
 app.use(helmet());
 app.use(cors());
 
 // Rutas
 app.use('/auth', authRoutes);
-app.use('/api', userRouter); // Asumiendo que esta es la ruta para usuarios
+app.use('/api', userRouter);
 app.use('/api', brandRoutes);
 app.use('/api', categoryRoutes);
 app.use('/equipments', equipmentRoutes);

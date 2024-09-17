@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// src/components/CategoryForm.tsx
 import React, { useState } from 'react';
 import { createCategory } from '../services/api';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate para redireccionar
+import { useNavigate } from 'react-router-dom'; 
 
 const CategoryForm = () => {
   const [categoryName, setCategoryName] = useState('');
@@ -18,7 +17,7 @@ const CategoryForm = () => {
     try {
       await createCategory({ name: categoryName, id: '' });
       setCategoryName('');
-      navigate('/admin/categories'); // Redirige a la lista de categorías después de crear una nueva
+      navigate('/admin/categories');
     } catch (error) {
       setError('Error creating category');
     } finally {
@@ -40,7 +39,7 @@ const CategoryForm = () => {
         </button>
       </form>
       {error && <p>{error}</p>}
-      <button onClick={() => navigate('/admin/categories')}>View Categories</button> {/* Añade un botón para ver la lista de categorías */}
+      <button onClick={() => navigate('/admin/categories')}>View Categories</button>
     </div>
   );
 };

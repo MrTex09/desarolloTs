@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { User } from '../models/user'; // Asegúrate de que la ruta sea correcta
+import { User } from '../models/user'; 
 import bcrypt from 'bcryptjs';
 import { User as UserType } from '../interfaces/user';
 
@@ -32,7 +32,6 @@ export const createUser = async (req: Request, res: Response) => {
   const { username, password, role, gmail } = req.body;
 
   try {
-    // Verificar si el usuario ya existe
     const existingUser = await User.findOne({ where: { username } });
     if (existingUser) {
       return res.status(400).json({ message: 'User with this username already exists' });
@@ -54,15 +53,11 @@ export const updateUser = async (req: Request, res: Response) => {
   try {
     const user = await User.findByPk(id);
     if (!user) return res.status(404).json({ message: 'User not found' });
-
-    // Asegúrate de que `role` sea uno de los valores permitidos
     if (updates.role && !['admin', 'user'].includes(updates.role)) {
       return res.status(400).json({ message: 'Invalid role' });
     }
-
-    // Crear un nuevo objeto de actualizaciones sin el campo id
     const { id: _, ...updateData } = updates;
-    const updatedUser = await user.update(updateData as any); // `as any` puede ser utilizado aquí si el tipo sigue sin coincidir
+    const updatedUser = await user.update(updateData as any);
     res.status(200).json(updatedUser);
   } catch (error: unknown) {
     res.status(500).json({ message: 'Error updating user', error: (error as Error).message });

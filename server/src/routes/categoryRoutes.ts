@@ -1,4 +1,3 @@
-// routes/categoryRoutes.ts
 import { Router } from 'express';
 import { Category } from '../models/Category';
 

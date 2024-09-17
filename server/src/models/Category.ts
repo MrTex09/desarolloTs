@@ -1,14 +1,11 @@
-// models/Category.ts
 import { Model, DataTypes } from 'sequelize';
-import { sequelize } from '../config/db'; // Ajusta la ruta según tu configuración
-import { Brand } from './brandModel'; // Asegúrate de que la ruta sea correcta
+import { sequelize } from '../config/db'; 
+import { Brand } from './brandModel'; 
 
 class Category extends Model {
   public id!: string;
   public name!: string;
 }
-
-// Define el modelo
 Category.init({
   id: {
     type: DataTypes.UUID,
@@ -24,7 +21,6 @@ Category.init({
   tableName: 'categories'
 });
 
-// Define las asociaciones
 Category.belongsTo(Brand, { foreignKey: 'brandId' });
 Brand.hasMany(Category, { foreignKey: 'brandId' });
 
