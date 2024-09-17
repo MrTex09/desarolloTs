@@ -1,4 +1,7 @@
 export interface CustomJwtPayload {
-  id: string;
+  id: number;
+  username: string;
+  gmail: string;
+  password: string;
   role: string;
 }

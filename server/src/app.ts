@@ -6,9 +6,15 @@ import { sequelize } from '../src/config/db';
 import authRoutes from './routes/authRoutes';
 import equipmentRoutes from './routes/equipmentRoutes';
 import  userRouter from "../src/routes/userRoutes"
+import brandRoutes from './routes/brandRoutes';
+import categoryRoutes from './routes/categoryRoutes';
 dotenv.config();
 
 const app = express();
+
+
+app.use('/brands', brandRoutes);
+app.use('/categories', categoryRoutes);
 
 // Middlewares
 app.use(express.json()); // Para manejar peticiones con JSON
@@ -19,7 +25,8 @@ app.use(cors()); // Habilitar CORS para manejar peticiones cross-origin
 app.use('/auth', authRoutes); // Rutas de autenticación
 app.use('/api', userRouter); // Rutas de user
 app.use('/equipments', equipmentRoutes); // Rutas de equipos
-
+app.use('/api', brandRoutes ); 
+app.use('/api', categoryRoutes ); 
 // Puerto del servidor
 const PORT = process.env.PORT || 3000;
 

@@ -34,7 +34,7 @@ const RegisterForm: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/api/register', formData);
+      const response = await axios.post('http://localhost:3000/auth/register', formData);
       setSuccess('User registered successfully!');
       setError(null);
       // Redirigir al home después del registro exitoso
@@ -44,7 +44,7 @@ const RegisterForm: React.FC = () => {
         password: '',
         role: 'user', // Valor por defecto
       });
-      navigate('/'); // Ruta a la que redirigir
+      navigate('/equipments'); // Ruta a la que redirigir
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         // Handle specific error messages from the server

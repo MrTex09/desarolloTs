@@ -7,6 +7,7 @@ import { User as UserType } from '../interfaces/user';
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await User.findAll();
+
     res.status(200).json(users);
   } catch (error: unknown) {
     res.status(500).json({ message: 'Error fetching users', error: (error as Error).message });
@@ -26,8 +27,7 @@ export const getUserById = async (req: Request, res: Response) => {
   }
 };
 
-// Crear un nuevo usuario// src/controllers/userController.ts
-
+// Crear un nuevo usuario
 export const createUser = async (req: Request, res: Response) => {
   const { username, password, role, gmail } = req.body;
 
@@ -41,15 +41,10 @@ export const createUser = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ username, gmail, password: hashedPassword, role });
     res.status(201).json({ message: 'User created successfully', user });
-  } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).json({ message: `Error creating user: ${error.message}` });
-    } else {
-      res.status(500).json({ message: 'Unknown error occurred while creating user' });
-    }
+  } catch (error: unknown) {
+    res.status(500).json({ message: `Error creating user: ${(error as Error).message}` });
   }
 };
-
 
 // Actualizar un usuario
 export const updateUser = async (req: Request, res: Response) => {
@@ -88,19 +83,14 @@ export const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
-// Actualizar el rol de un usuario
-export const updateUserRole = async (id: string, role: 'admin' | 'user') => {
-  try {
-    const user = await User.findByPk(id);
-    if (!user) throw new Error('User not found');
 
-    // Asegúrate de que `role` sea uno de los valores permitidos
-    if (!['admin', 'user'].includes(role)) {
-      throw new Error('Invalid role');
-    }
+export const updateUserRole = async (id: string, role: string): Promise<void> => {
+  const user = await User.findByPk(id);
+  if (!user) throw new Error('User not found');
 
-    await user.update({ role });
-  } catch (error: unknown) {
-    throw new Error(`Error updating user role: ${(error as Error).message}`);
+  if (!['admin', 'user'].includes(role)) {
+    throw new Error('Invalid role');
   }
+
+  await user.update({ role: role as 'admin' | 'user' });
 };

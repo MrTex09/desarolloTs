@@ -1,5 +1,5 @@
+// src/services/api.ts
 import axios from 'axios';
-
 
 const api = axios.create({
   baseURL: 'http://localhost:3000',
@@ -13,29 +13,81 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
+interface EquipmentData {
+  name: string;
+  status: string;
+  location: string;
+  purchaseDate: string;
+  brandId?: string;
+  categoryId?: string;
+}
 
-export const login = (username: string, password: string) => {
-  return api.post('/auth/login', { username, password });
-};
+interface Brand {
+  id: string;
+  name: string;
+}
+
+interface Category {
+  id: string;
+  name: string;
+}
+
+// Equipos
+interface Equipment {
+  id: string;
+  name: string;
+  status: string;
+  location: string;
+  purchaseDate: string;
+  brandId?: string;
+  categoryId?: string;
+}
 
 export const fetchEquipments = () => {
-  return api.get('/equipments');
+  return api.get<Equipment[]>('/equipments').then((res) => res.data);
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const createEquipment = (data: any) => {
+export const fetchEquipmentById = (id: string) => {
+  return api.get<Equipment>(`/equipments/${id}`).then((res) => res.data);
+};
+
+export const createEquipment = (data: EquipmentData) => {
   return api.post('/equipments', data);
 };
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const updateEquipment = (id: string, data: any) => {
+
+export const updateEquipment = (id: string, data: EquipmentData) => {
   return api.put(`/equipments/${id}`, data);
 };
 
 export const deleteEquipment = (id: string) => {
   return api.delete(`/equipments/${id}`);
+};
+
+// Marcas
+export const createBrand = (data: Brand) => {
+  return api.post('/api/brands', data);
+};
+
+export const deleteBrand = (id: string) => {
+  return api.delete(`/api/brands/${id}`);
+};
+
+export const getBrands = () => {
+  return api.get<Brand[]>('/api/brands').then((res) => res.data);
+};
+
+// Categorías
+export const createCategory = (data: Category) => {
+  return api.post('/api/categories', data);
+};
+
+export const deleteCategory = (id: string) => {
+  return api.delete(`/api/categories/${id}`);
+};
+
+export const getCategories = () => {
+  return api.get<Category[]>('/api/categories').then((res) => res.data);
 };

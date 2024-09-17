@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { fetchEquipments, deleteEquipment } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
-
 interface Equipment {
   id: string;
   name: string;
@@ -13,10 +12,11 @@ interface Equipment {
 const EquipmentList = () => {
   const [equipments, setEquipments] = useState<Equipment[]>([]);
   const navigate = useNavigate(); 
+
   useEffect(() => {
     const loadEquipments = async () => {
-      const response = await fetchEquipments();
-      setEquipments(response.data);
+      const equipmentsData = await fetchEquipments();
+      setEquipments(equipmentsData); // No es necesario usar `response.data`
     };
     loadEquipments();
   }, []);

@@ -10,7 +10,17 @@ export const createEquipment = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Error creating equipment', error });
   }
 };
+export const getEquipmentById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const equipment = await Equipment.findByPk(id);
+    if (!equipment) return res.status(404).json({ message: 'Equipment not found' });
 
+    res.json(equipment);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching equipment', error });
+  }
+};
 export const getAllEquipments = async (req: Request, res: Response) => {
   try {
     const equipments = await Equipment.findAll();

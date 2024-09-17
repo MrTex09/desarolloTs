@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -8,8 +9,14 @@ const UserList: React.FC = () => {
     // Fetch users from API
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('/api/users'); // Cambia la URL si es necesario
-        setUsers(response.data);
+        const response = await axios.get('http://localhost:3000/api/users'); // Cambia la URL si es necesario
+
+        // Verificar si response.data es un array
+        if (Array.isArray(response.data)) {
+          setUsers(response.data);
+        } else {
+          console.error('Unexpected response format:', response.data);
+        }
       } catch (error) {
         console.error('Error fetching users:', error);
       }
@@ -17,18 +24,17 @@ const UserList: React.FC = () => {
 
     fetchUsers();
   }, []);
-
   const handleMakeAdmin = async (userId: string) => {
     try {
-      await axios.put(`/api/users/${userId}/make-admin`); // Endpoint para actualizar el rol del usuario
-      setUsers(users.map(user => 
+      await axios.patch(`http://localhost:3000/api/users/${userId}/role`, { role: 'admin' }); // Cambia a PATCH y el endpoint correcto
+      setUsers(users.map(user =>
         user.id === userId ? { ...user, role: 'admin' } : user
       ));
     } catch (error) {
       console.error('Error updating user role:', error);
     }
   };
-
+  
   return (
     <div>
       <h1>User List</h1>

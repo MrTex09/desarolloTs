@@ -1,5 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/db';
+import { Brand } from './brandModel';
+import { Category } from './Category'; // Asegúrate de que la extensión del archivo sea correcta
 
 export const Equipment = sequelize.define('Equipment', {
   name: {
@@ -10,6 +12,17 @@ export const Equipment = sequelize.define('Equipment', {
     type: DataTypes.STRING,
     defaultValue: 'available',
   },
-  location: DataTypes.STRING,
-  purchaseDate: DataTypes.DATE,
+  location: {
+    type: DataTypes.STRING,
+  },
+  purchaseDate: {
+    type: DataTypes.DATE,
+  },
 });
+
+// Definir las asociaciones
+Equipment.belongsTo(Brand, { foreignKey: 'brandId' });
+Equipment.belongsTo(Category, { foreignKey: 'categoryId' });
+
+// Si necesitas exportar el modelo para su uso en otros archivos, asegúrate de hacerlo aquí
+export default Equipment;

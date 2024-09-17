@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import {
   getAllUsers,
   getUserById,
@@ -6,26 +6,38 @@ import {
   updateUser,
   deleteUser,
   updateUserRole
-} from '../controllers/userController'; // Asegúrate de que esta ruta y las funciones estén correctas
+} from '../controllers/userController';
 
 const router = Router();
 
 // Definición de rutas
 router.get('/users', getAllUsers);
 router.get('/users/:id', getUserById);
-router.post('/userss', createUser); // Aquí se maneja la solicitud POST
+router.post('/users', createUser); // Corrección del endpoint de creación
 router.put('/users/:id', updateUser);
 router.delete('/users/:id', deleteUser);
-router.patch('/users/:id/role', async (req, res) => {
+
+// Actualización del rol del usuario
+router.patch('/users/:id/role', async (req: Request, res: Response) => {
   const { id } = req.params;
   const { role } = req.body;
+
+  // Verificar los tipos de id y role
+  if (typeof id !== 'string' || typeof role !== 'string') {
+    return res.status(400).json({ message: 'Invalid input' });
+  }
+
+  // Validar el rol
+  if (!['admin', 'user'].includes(role)) {
+    return res.status(400).json({ message: 'Invalid role' });
+  }
+
   try {
     await updateUserRole(id, role);
-    res.status(200).json({ message: 'User role updated' });
+    res.status(200).json({ message: 'User role updated successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Error updating user role', error: (error as Error).message });
+    res.status(500).json({ message: `Error updating user role: ${(error as Error).message}` });
   }
 });
 
 export default router;
-//neceisot que del lago del front y el back que solo un usuario logeado pueda aagregar y 
